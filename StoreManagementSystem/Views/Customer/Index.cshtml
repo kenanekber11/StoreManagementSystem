@@ -1,0 +1,39 @@
+﻿@using PagedList
+@using PagedList.Mvc
+@model PagedList.IPagedList<StoreManagementSystem.Models.Entity.Tbl_Customer>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<table class="table table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Customer Name</th>
+        <th>Customer Surname</th>
+        <th>City</th>
+        <th>Balance</th>
+        <th>Delete</th>
+        <th>Update</th>
+    </tr>
+    @foreach (var x in Model)
+    {
+        <tr>
+            <td>@x.ID</td>
+            <td>@x.Name</td>
+            <td>@x.Surname</td>
+            <td>@x.City</td>
+            <td>@x.Balance</td>
+            <td><a href="/Customer/DeleteCustomer/@x.ID" class="btn btn-danger">Delete</a></td>
+            <td><a href="/Customer/UpdateCustomer/@x.ID" class="btn btn-success">Update</a></td>
+        </tr>
+    }
+</table>
+
+<a href="/Customer/NewCustomer" class="btn btn-primary">New Customer</a>
+<div style="text-align:right; padding-bottom:0px;">
+@Html.PagedListPager((IPagedList)Model, page => Url.Action("Index", new {page}))
+  </div>  
+

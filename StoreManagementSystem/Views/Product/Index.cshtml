@@ -1,0 +1,38 @@
+﻿@model List<StoreManagementSystem.Models.Entity.Tbl_Product>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<table class="table table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Product Name</th>
+        <th>Brand</th>
+        <th>Stock</th>
+        <th>Purchase Price</th>
+        <th>Sell Price</th>
+        <th>Category Name</th>
+        <th>Delete</th>
+        <th>Update</th>
+    </tr>
+    @foreach (var x in Model)
+    {
+        <tr>
+            <td>@x.ID</td>
+            <td>@x.Name</td>
+            <td>@x.Brand</td>
+            <td>@x.Stock</td>
+            <td>@x.PurchasePrice</td>
+            <td>@x.SellPrice</td>
+            <td>@x.TbL_Category.Name</td>
+            <td><a href="/Product/deleteProduct/@x.ID" class="btn btn-danger">Delete</a></td>
+            <td><a href="/Product/updateProduct/@x.ID" class="btn btn-success">Update</a></td>
+        </tr>
+    }
+</table>
+<br />
+<a href="/Product/NewProduct" class="btn btn-primary">New Product</a>
+
+

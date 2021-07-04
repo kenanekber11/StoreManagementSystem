@@ -1,0 +1,26 @@
+﻿@model List<StoreManagementSystem.Models.Entity.TbL_Category>
+ 
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<table class="table table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Category Name</th>
+        <th>Delete</th>
+        <th>Update</th>
+    </tr>
+    @foreach (var x in Model)
+    {
+        <tr>
+            <td>@x.ID</td> 
+            <td>@x.Name</td>         
+            <td><a href="/Category/DeleteCategory/@x.ID" class="btn btn-danger">Delete</a></td>
+            <td><a href="/Category/UpdateCategory/@x.ID" class="btn btn-success">Update</a></td>
+        </tr>
+    }
+</table>
+<a href="/Category/NewCategory" class="btn btn-primary">New Category</a>

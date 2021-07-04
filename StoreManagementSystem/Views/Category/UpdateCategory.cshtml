@@ -1,0 +1,16 @@
+﻿@model StoreManagementSystem.Models.Entity.TbL_Category
+
+@{
+    ViewBag.Title = "UpdateCategory";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+@using (Html.BeginForm("UpdateCategories", "Category", FormMethod.Post)) { 
+    <h2>Update Category</h2>
+    @Html.HiddenFor(x=>x.ID, new {@class="form-control"})
+    <br />
+    <h4>Category Name</h4>
+    <br />
+    @Html.TextBoxFor(x=>x.Name, new { @class="form-control"})
+    <br />
+    <button class="btn btn-info">Save</button>
+}

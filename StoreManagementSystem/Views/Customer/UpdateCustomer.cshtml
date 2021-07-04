@@ -1,0 +1,28 @@
+﻿@model StoreManagementSystem.Models.Entity.Tbl_Customer
+
+@{
+    ViewBag.Title = "UpdateCustomer";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+@using (Html.BeginForm("UpdateCustomers", "Customer", FormMethod.Post))
+{
+    <h2>Update Customer Table</h2>
+    @Html.HiddenFor(x => x.ID, new { @class = "form-control" })
+    <br />
+    <h4>Name</h4>
+    @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+    <br />
+    <h4>Surname</h4>
+    @Html.TextBoxFor(x => x.Surname, new { @class = "form-control" })
+    <br />
+    <h4>City</h4>
+    @Html.TextBoxFor(x => x.City, new { @class = "form-control" })
+    <br />
+    <h4>Balance</h4>
+    @Html.TextBoxFor(x => x.Balance, new { @class = "form-control" })
+    <br />
+    <button class="btn btn-info">Save</button>
+
+}
+

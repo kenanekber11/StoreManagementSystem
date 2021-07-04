@@ -1,0 +1,152 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="DB_StokModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="sysdiagram">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <EntityType Name="TbL_Category">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Tbl_Product" Relationship="Self.FK_Tbl_Product_TbL_Category" FromRole="TbL_Category" ToRole="Tbl_Product" />
+  </EntityType>
+  <EntityType Name="Tbl_Customer">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Surname" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="City" Type="String" MaxLength="15" FixedLength="false" Unicode="true" />
+    <Property Name="Balance" Type="Decimal" Precision="18" Scale="2" />
+    <NavigationProperty Name="Tbl_Sales" Relationship="Self.FK_Tbl_Sales_Tbl_Customer" FromRole="Tbl_Customer" ToRole="Tbl_Sales" />
+    <Property Name="Status" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Tbl_Product">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+    <Property Name="Brand" Type="String" MaxLength="40" FixedLength="false" Unicode="true" />
+    <Property Name="Stock" Type="Int16" />
+    <Property Name="PurchasePrice" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="SellPrice" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="CategoryID" Type="Int32" />
+    <NavigationProperty Name="TbL_Category" Relationship="Self.FK_Tbl_Product_TbL_Category" FromRole="Tbl_Product" ToRole="TbL_Category" />
+    <NavigationProperty Name="Tbl_Sales" Relationship="Self.FK_Tbl_Sales_Tbl_Product" FromRole="Tbl_Product" ToRole="Tbl_Sales" />
+    <Property Name="Status" Type="Boolean" />
+  </EntityType>
+  <EntityType Name="Tbl_Sales">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="ProductID" Type="Int32" />
+    <Property Name="StaffID" Type="Int32" />
+    <Property Name="CustomerID" Type="Int32" />
+    <Property Name="Price" Type="Decimal" Precision="18" Scale="2" />
+    <Property Name="Date" Type="DateTime" Precision="0" />
+    <NavigationProperty Name="Tbl_Customer" Relationship="Self.FK_Tbl_Sales_Tbl_Customer" FromRole="Tbl_Sales" ToRole="Tbl_Customer" />
+    <NavigationProperty Name="Tbl_Product" Relationship="Self.FK_Tbl_Sales_Tbl_Product" FromRole="Tbl_Sales" ToRole="Tbl_Product" />
+    <NavigationProperty Name="Tbl_Staff" Relationship="Self.FK_Tbl_Sales_Tbl_Staff" FromRole="Tbl_Sales" ToRole="Tbl_Staff" />
+  </EntityType>
+  <EntityType Name="Tbl_Staff">
+    <Key>
+      <PropertyRef Name="ID" />
+    </Key>
+    <Property Name="ID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Name" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <Property Name="Surname" Type="String" MaxLength="30" FixedLength="false" Unicode="true" />
+    <NavigationProperty Name="Tbl_Sales" Relationship="Self.FK_Tbl_Sales_Tbl_Staff" FromRole="Tbl_Staff" ToRole="Tbl_Sales" />
+  </EntityType>
+  <Association Name="FK_Tbl_Product_TbL_Category">
+    <End Role="TbL_Category" Type="Self.TbL_Category" Multiplicity="0..1" />
+    <End Role="Tbl_Product" Type="Self.Tbl_Product" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="TbL_Category">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Tbl_Product">
+        <PropertyRef Name="CategoryID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tbl_Sales_Tbl_Customer">
+    <End Role="Tbl_Customer" Type="Self.Tbl_Customer" Multiplicity="0..1" />
+    <End Role="Tbl_Sales" Type="Self.Tbl_Sales" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tbl_Customer">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Tbl_Sales">
+        <PropertyRef Name="CustomerID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tbl_Sales_Tbl_Product">
+    <End Role="Tbl_Product" Type="Self.Tbl_Product" Multiplicity="0..1" />
+    <End Role="Tbl_Sales" Type="Self.Tbl_Sales" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tbl_Product">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Tbl_Sales">
+        <PropertyRef Name="ProductID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_Tbl_Sales_Tbl_Staff">
+    <End Role="Tbl_Staff" Type="Self.Tbl_Staff" Multiplicity="0..1" />
+    <End Role="Tbl_Sales" Type="Self.Tbl_Sales" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Tbl_Staff">
+        <PropertyRef Name="ID" />
+      </Principal>
+      <Dependent Role="Tbl_Sales">
+        <PropertyRef Name="StaffID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="DB_StokEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagram" />
+    <EntitySet Name="TbL_Category" EntityType="Self.TbL_Category" />
+    <EntitySet Name="Tbl_Customer" EntityType="Self.Tbl_Customer" />
+    <EntitySet Name="Tbl_Product" EntityType="Self.Tbl_Product" />
+    <EntitySet Name="Tbl_Sales" EntityType="Self.Tbl_Sales" />
+    <EntitySet Name="Tbl_Staff" EntityType="Self.Tbl_Staff" />
+    <AssociationSet Name="FK_Tbl_Product_TbL_Category" Association="Self.FK_Tbl_Product_TbL_Category">
+      <End Role="TbL_Category" EntitySet="TbL_Category" />
+      <End Role="Tbl_Product" EntitySet="Tbl_Product" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tbl_Sales_Tbl_Customer" Association="Self.FK_Tbl_Sales_Tbl_Customer">
+      <End Role="Tbl_Customer" EntitySet="Tbl_Customer" />
+      <End Role="Tbl_Sales" EntitySet="Tbl_Sales" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tbl_Sales_Tbl_Product" Association="Self.FK_Tbl_Sales_Tbl_Product">
+      <End Role="Tbl_Product" EntitySet="Tbl_Product" />
+      <End Role="Tbl_Sales" EntitySet="Tbl_Sales" />
+    </AssociationSet>
+    <AssociationSet Name="FK_Tbl_Sales_Tbl_Staff" Association="Self.FK_Tbl_Sales_Tbl_Staff">
+      <End Role="Tbl_Staff" EntitySet="Tbl_Staff" />
+      <End Role="Tbl_Sales" EntitySet="Tbl_Sales" />
+    </AssociationSet>
+    <EntitySet Name="Tbl_Admin" EntityType="DB_StokModel.Tbl_Admin" />
+  </EntityContainer>
+  <EntityType Name="Tbl_Admin">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="kullanici" Type="String" Nullable="false" MaxLength="20" FixedLength="false" Unicode="true" />
+    <Property Name="sifre" Type="String" Nullable="false" MaxLength="15" FixedLength="false" Unicode="true" />
+  </EntityType>
+</Schema>

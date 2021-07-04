@@ -1,0 +1,30 @@
+﻿@model StoreManagementSystem.Models.Entity.Tbl_Customer
+
+@{
+    ViewBag.Title = "NewCustomer";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<form method="post">
+    <h2>New Customer</h2>
+    <br />
+    <label>Customer Name</label>
+    @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.Name, "", new { @style = "color: red" })
+
+    <br />
+    <label>Customer Surname</label>
+    @Html.TextBoxFor(x => x.Surname, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.Surname, "", new { @style = "color: red" })
+
+    <br />
+    <label>City</label>
+    @Html.TextBoxFor(x => x.City, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.City, "", new { @style = "color: red" })
+
+    <br />
+    <label>Balance</label>
+    @Html.TextBoxFor(x => x.Balance, new { @class = "form-control" })
+    <br />
+    <button class="btn btn-info">Kaydet </button>
+</form>

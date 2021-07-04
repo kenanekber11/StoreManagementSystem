@@ -1,0 +1,29 @@
+﻿@model StoreManagementSystem.Models.Entity.Tbl_Product
+
+@{
+    ViewBag.Title = "NewProduct";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+<form method="post">
+    <h2>New Product</h2>
+    <br />
+    <label>Product Name</label>
+    @Html.TextBoxFor(x => x.Name, new { @class = "form-control" })
+    <br />
+    <label>Product Brand</label>
+    @Html.TextBoxFor(x => x.Brand, new { @class = "form-control"})
+    <br />
+    <label>Purchase Price</label>
+    @Html.TextBoxFor(x => x.PurchasePrice, new { @class = "form-control" })
+    <br />
+    <label>Selling Price</label>
+    @Html.TextBoxFor(x => x.SellPrice, new { @class = "form-control" })
+    <br />
+    <label>Stock</label>
+    @Html.TextBoxFor(x => x.Stock, new { @class = "form-control" })
+    <br />
+    <label>Category</label>
+    @Html.DropDownListFor(x=>x.TbL_Category.ID,(List<SelectListItem>)ViewBag.droplist, new { @class="form-control"})
+    <button class="btn btn-info">Add Product</button>
+</form>

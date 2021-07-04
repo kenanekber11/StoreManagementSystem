@@ -1,0 +1,34 @@
+﻿@model List<StoreManagementSystem.Models.Entity.Tbl_Sales>
+
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_AdminLayout.cshtml";
+}
+
+
+<table class="table table-bordered">
+    <tr>
+        <th>ID</th>
+        <th>Ürün</th>
+        <th>Personel</th>
+        <th>Müşteri</th>
+        <th>Fiyat</th>
+        <th>Tarih</th>
+    </tr>
+    @foreach (var x in Model)
+    {
+        <tr>
+            <td>@x.ID</td>
+            <td>@x.Tbl_Product.Name</td>
+            <td>@x.Tbl_Staff.Name @x.Tbl_Staff.Surname</td>
+            <td>@x.Tbl_Customer.Name  @x.Tbl_Customer.Surname</td>
+            <td>@x.Price</td>
+            <td>@x.Date</td>
+        </tr>
+    }
+</table>
+
+<a href="/Sales/NewSale" class="btn btn-primary">New Sale</a>
+
+
+
